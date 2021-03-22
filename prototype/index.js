@@ -1,36 +1,44 @@
-// const user = {
-//     name: 'Sardor',
-//     age: 22,
-//     greet: function () {
-//         console.log('Greet!!!');
-//     }
-// }
-
-const user = new Object({
-    name: 'Sardor',
-    age: 22,
-    greet: function () {
-        console.log('Greet!!!');
+let animal = {
+    eats: true,
+    walk() {
+        console.log('Animal walk!')
     }
-});
-
-Object.prototype.sayHello = function () {
-    console.log('SayHello function was called');
-};
-
-const katya = Object.create(user);
-
-katya.name = 'Ekaterina';
-katya.age = 27;
-
-const str = new String('I am string');
-
-function UserName(name) {
-    this.name = name
 }
 
-UserName.prototype = user;
+let rabbit = {
+    jumps: true,
+    __proto__: animal
+}
 
-const userName = new UserName('Oytovok');
+let longEar = {
+    earLength: 20,
+    __proto__: rabbit
+}
 
+console.log(longEar.earLength)
+console.log(longEar.walk())
 
+let user = {
+    name: "John",
+    surname: "Smith",
+
+    set fullName(value) {
+        [this.name, this.surname] = value.split(" ");
+    },
+
+    get fullName() {
+        return `${this.name} ${this.surname}`;
+    }
+};
+
+let admin = {
+    __proto__: user,
+    isAdmin: true
+};
+
+alert(admin.fullName); // John Smith (*)
+
+// срабатывает сеттер!
+admin.fullName = "Alice Cooper"; // (**)
+alert(admin.name); // Alice
+alert(admin.surname); // Cooper
